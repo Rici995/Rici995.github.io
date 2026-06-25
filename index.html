@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rici | Senior IT Infrastructure Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a0f1e;
+    --navy-mid: #0d1528;
+    --navy-light: #132040;
+    --blue: #1F4E79;
+    --accent: #4da6ff;
+    --accent-glow: #4da6ff44;
+    --cyan: #00d4ff;
+    --green: #00ff88;
+    --text: #e2e8f0;
+    --text-dim: #8899aa;
+    --border: #1e3a5f;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRID BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(77,166,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77,166,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,15,30,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .nav-logo span { color: var(--cyan); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+    max-width: 100%;
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--cyan);
+  }
+
+  .hero-name {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name .accent { color: var(--accent); }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-title .typing {
+    color: var(--green);
+    border-right: 2px solid var(--green);
+    animation: blink 0.8s infinite;
+  }
+
+  @keyframes blink { 0%,100%{border-color:transparent} 50%{border-color:var(--green)} }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: left;
+  }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: var(--navy);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-primary:hover { background: var(--cyan); transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.75rem;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-outline:hover { background: var(--accent-glow); transform: translateY(-2px); }
+
+  /* STATUS BAR */
+  .status-bar {
+    position: absolute;
+    right: 8vw;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem;
+    width: 260px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+  }
+
+  .status-title {
+    color: var(--accent);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  .status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  .status-dot.orange { background: #ffaa00; box-shadow: 0 0 6px #ffaa00; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .status-val { color: var(--text); }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .section-title span { color: var(--accent); }
+
+  .section-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin-top: 0.75rem;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .skill-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    padding: 1.5rem;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-glow), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 30px var(--accent-glow); }
+  .skill-card:hover::after { opacity: 1; }
+
+  .skill-icon {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-cat {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    background: var(--navy-light);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    letter-spacing: 0.5px;
+  }
+
+  .tag.hot { border-color: var(--accent); color: var(--accent); }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+
+  .timeline-item:hover { border-color: var(--accent); }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.55rem;
+    top: 1.5rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--cyan);
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-company {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .timeline-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    transition: all 0.25s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(77,166,255,0.1);
+  }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+    opacity: 0.6;
+  }
+
+  .project-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  /* CERT GRID */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.25rem;
+    transition: all 0.2s;
+  }
+
+  .cert-card:hover { border-color: var(--accent); background: var(--navy-light); }
+
+  .cert-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .cert-valid {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--green);
+  }
+
+  /* CONTACT */
+  #contact {
+    text-align: center;
+  }
+
+  .contact-box {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    padding: 3rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .status-bar { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    nav ul { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">R<span>ICI</span>.DEV</div>
+  <ul>
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#skills">SKILLS</a></li>
+    <li><a href="#experience">EXP</a></li>
+    <li><a href="#projects">PROJECTS</a></li>
+    <li><a href="#certs">CERTS</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero" style="position:relative">
+  <div class="hero-eyebrow">SENIOR IT INFRASTRUCTURE ENGINEER</div>
+  <h1 class="hero-name"><span class="accent">R</span>ICI</h1>
+  <div class="hero-title">
+    <span class="typing" id="typing-text">Hybrid Infrastructure | Network | Cloud | Security</span>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">7+</div>
+      <div class="stat-label">YEARS EXPERIENCE</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">USERS MANAGED</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">SERVERS MIGRATED</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">99.9%</div>
+      <div class="stat-label">UPTIME ACHIEVED</div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">HIRE ME</a>
+    <a href="#projects" class="btn-outline">VIEW PROJECTS</a>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-title">// SYSTEM STATUS</div>
+    <div class="status-item">
+      <span>Proxmox Cluster</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="status-val">ONLINE</span>
+        <div class="status-dot"></div>
+      </div>
+    </div>
+    <div class="status-item">
+      <span>Zabbix Monitor</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="status-val">ACTIVE</span>
+        <div class="status-dot"></div>
+      </div>
+    </div>
+    <div class="status-item">
+      <span>WireGuard VPN</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="status-val">SECURED</span>
+        <div class="status-dot"></div>
+      </div>
+    </div>
+    <div class="status-item">
+      <span>Alibaba Cloud</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="status-val">RUNNING</span>
+        <div class="status-dot orange"></div>
+      </div>
+    </div>
+    <div class="status-item">
+      <span>Odoo ERP</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="status-val">STABLE</span>
+        <div class="status-dot"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">// TECHNICAL EXPERTISE</div>
+    <h2 class="section-title">Core <span>Skills</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-cat">INFRASTRUCTURE</div>
+      <div class="skill-name">Server & Virtualization</div>
+      <div class="skill-tags">
+        <span class="tag hot">VMware vSphere</span>
+        <span class="tag hot">Proxmox</span>
+        <span class="tag">Windows Server</span>
+        <span class="tag">Linux</span>
+        <span class="tag">QNAP NAS</span>
+        <span class="tag">P2V Migration</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-cat">NETWORKING</div>
+      <div class="skill-name">Network & Security</div>
+      <div class="skill-tags">
+        <span class="tag hot">MikroTik</span>
+        <span class="tag hot">Fortinet</span>
+        <span class="tag">VLAN</span>
+        <span class="tag">WireGuard</span>
+        <span class="tag">Load Balancing</span>
+        <span class="tag">EoIP</span>
+        <span class="tag">Failover</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-cat">CLOUD</div>
+      <div class="skill-name">Cloud & Hybrid Ops</div>
+      <div class="skill-tags">
+        <span class="tag hot">Alibaba Cloud</span>
+        <span class="tag hot">AWS</span>
+        <span class="tag">Microsoft 365</span>
+        <span class="tag">ECS</span>
+        <span class="tag">RDS</span>
+        <span class="tag">Hybrid Infra</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📊</div>
+      <div class="skill-cat">MONITORING</div>
+      <div class="skill-name">Monitoring & Identity</div>
+      <div class="skill-tags">
+        <span class="tag hot">Zabbix</span>
+        <span class="tag hot">Grafana</span>
+        <span class="tag">PRTG</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">LDAP / SSO</span>
+        <span class="tag">Kaspersky SC</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-cat">APPLICATIONS</div>
+      <div class="skill-name">Enterprise Apps</div>
+      <div class="skill-tags">
+        <span class="tag hot">Odoo ERP</span>
+        <span class="tag">Zimbra</span>
+        <span class="tag">GLPI</span>
+        <span class="tag">Metabase</span>
+        <span class="tag">OCS Inventory</span>
+        <span class="tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">👥</div>
+      <div class="skill-cat">LEADERSHIP</div>
+      <div class="skill-name">Management & Governance</div>
+      <div class="skill-tags">
+        <span class="tag hot">Team Leadership</span>
+        <span class="tag">ICT Governance</span>
+        <span class="tag">Vendor Management</span>
+        <span class="tag">SLA Management</span>
+        <span class="tag">IT Roadmap</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">// WORK HISTORY</div>
+    <h2 class="section-title">Work <span>Experience</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-period">MAR 2024 — PRESENT</div>
+      <div class="timeline-role">Senior IT Infrastructure Engineer</div>
+      <div class="timeline-company">Binabusana Internusa · Triputra Group · Jakarta</div>
+      <div class="timeline-desc">Architecting and maintaining hybrid enterprise infrastructure supporting 500+ users across multiple branches. Achieved 99.9% uptime for business-critical ERP systems. Owns end-to-end network design, security, monitoring, and cloud operations.</div>
+      <div class="timeline-badges">
+        <span class="tag hot">Alibaba Cloud</span><span class="tag hot">VMware</span><span class="tag">Proxmox</span><span class="tag">Zabbix</span><span class="tag">Fortinet</span><span class="tag">Odoo ERP</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">MAR 2023 — MAR 2024</div>
+      <div class="timeline-role">IT Infrastructure — L2 System Administrator</div>
+      <div class="timeline-company">Sinarmas Sekuritas · Jakarta</div>
+      <div class="timeline-desc">Ensured 99.8% availability for 300+ users in a regulated securities environment. Managed Microsoft 365, AWS, VMware vSphere, and enterprise backup systems. Reduced RTO by 50% through improved disaster recovery procedures.</div>
+      <div class="timeline-badges">
+        <span class="tag hot">Microsoft 365</span><span class="tag hot">AWS</span><span class="tag">VMware</span><span class="tag">PRTG</span><span class="tag">Kaspersky</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">MAR 2020 — FEB 2023</div>
+      <div class="timeline-role">Head of ICT</div>
+      <div class="timeline-company">STIKes Medistra Indonesia · Bekasi</div>
+      <div class="timeline-desc">Led a team of 5 ICT staff managing infrastructure for 1,000+ academic users. Drove ICT strategy, delivered campus-wide network upgrade improving reliability by 60%, and managed 4+ institutional platform projects.</div>
+      <div class="timeline-badges">
+        <span class="tag hot">Team Lead</span><span class="tag">MikroTik</span><span class="tag">Proxmox</span><span class="tag">ICT Governance</span>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-period">JUN 2019 — FEB 2020</div>
+      <div class="timeline-role">IT Support</div>
+      <div class="timeline-company">STIKes Medistra Indonesia · Bekasi</div>
+      <div class="timeline-desc">Supported daily IT operations for 400+ campus users. Deployed mail systems, monitoring platforms, and MikroTik LAN/MAN network infrastructure.</div>
+      <div class="timeline-badges">
+        <span class="tag">Windows Server</span><span class="tag">Linux</span><span class="tag">MikroTik</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">// DELIVERED PROJECTS</div>
+    <h2 class="section-title">Key <span>Projects</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_01</div>
+      <div class="project-name">P2V Server Migration</div>
+      <div class="project-desc">Migrated 15 physical servers to Proxmox VMs at PT Binabusana, improving hardware utilization and cutting disaster recovery time significantly.</div>
+      <div class="skill-tags"><span class="tag hot">Proxmox</span><span class="tag">P2V</span><span class="tag">QNAP NAS</span></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_02</div>
+      <div class="project-name">Multi-Branch Network Design</div>
+      <div class="project-desc">Designed and implemented network infrastructure across 5 branch locations with VLAN segmentation, EoIP tunneling, load balancing, and failover management.</div>
+      <div class="skill-tags"><span class="tag hot">MikroTik</span><span class="tag">VLAN</span><span class="tag">EoIP</span><span class="tag">Failover</span></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_03</div>
+      <div class="project-name">Enterprise Domain & Security</div>
+      <div class="project-desc">Built Windows Server 2019 domain with AD, LDAP, SSO, WSUS, and GPO policies. Deployed Kaspersky Security Center and migrated VPN to WireGuard.</div>
+      <div class="skill-tags"><span class="tag hot">Windows Server</span><span class="tag">LDAP/SSO</span><span class="tag">WireGuard</span><span class="tag">Kaspersky</span></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_04</div>
+      <div class="project-name">Odoo ERP Deployment</div>
+      <div class="project-desc">Deployed Odoo ERP Enterprise Edition as the core business platform supporting finance, inventory, and procurement operations company-wide.</div>
+      <div class="skill-tags"><span class="tag hot">Odoo ERP</span><span class="tag">SQL Server</span><span class="tag">Linux</span></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_05</div>
+      <div class="project-name">Campus ICT Infrastructure</div>
+      <div class="project-desc">Built complete campus IT ecosystem at STIKes: Proxmox server, OJS journal system, SLiMS library, DSpace repository, and campus-wide network redesign.</div>
+      <div class="skill-tags"><span class="tag hot">Proxmox</span><span class="tag">OJS</span><span class="tag">DSpace</span><span class="tag">MikroTik</span></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_06</div>
+      <div class="project-name">Zimbra Mail & M365 Rollout</div>
+      <div class="project-desc">Deployed Zimbra Mail Server with full Outlook integration and managed Microsoft 365 (Exchange Online, Teams, SharePoint) for 300+ corporate users.</div>
+      <div class="skill-tags"><span class="tag hot">Zimbra</span><span class="tag">Microsoft 365</span><span class="tag">Exchange</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">// CREDENTIALS</div>
+    <h2 class="section-title">Certifications & <span>Training</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card reveal">
+      <div class="cert-name">Fortinet Certified Associate Cybersecurity</div>
+      <div class="cert-valid">✓ VALID UNTIL APR 2026</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">Alibaba Cloud Computing Fundamentals</div>
+      <div class="cert-valid">✓ VALID UNTIL MAY 2026</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">HPE Aruba Networking: Network Security Essentials</div>
+      <div class="cert-valid" style="color:var(--text-dim)">COMPLETED</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">MikroTik Certified Network Associate (MTCNA)</div>
+      <div class="cert-valid" style="color:var(--text-dim)">IDN NETWORK · COMPLETED</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">Windows Server Administration</div>
+      <div class="cert-valid" style="color:var(--text-dim)">IDN NETWORK · COMPLETED</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">VMware vSphere v7</div>
+      <div class="cert-valid" style="color:var(--text-dim)">COMPLETED</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">CCNA 200-301 Training</div>
+      <div class="cert-valid" style="color:var(--text-dim)">COMPLETED</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">Cloud Computing — Digital Talent Scholarship</div>
+      <div class="cert-valid" style="color:var(--text-dim)">KOMINFO</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">DevOps Fundamentals</div>
+      <div class="cert-valid" style="color:var(--text-dim)">COMPLETED</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-name">Linux Fundamentals</div>
+      <div class="cert-valid" style="color:var(--text-dim)">COMPLETED</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-eyebrow" style="text-align:center;margin-bottom:0.5rem">// GET IN TOUCH</div>
+    <h2 class="section-title" style="text-align:center">Let's <span>Connect</span></h2>
+    <div class="section-line" style="margin:0.75rem auto 2rem"></div>
+  </div>
+  <div class="contact-box reveal">
+    <p style="color:var(--text-dim);font-size:0.9rem;margin-bottom:0.5rem">Open for new opportunities</p>
+    <p style="font-size:1.1rem;color:#fff;font-weight:600">Senior IT Infrastructure Engineer</p>
+    <p style="font-family:var(--mono);font-size:0.75rem;color:var(--text-dim);margin-top:0.25rem">Based in Bekasi, Indonesia · Available Immediately</p>
+    <div class="contact-links">
+      <a href="mailto:rici100895@gmail.com" class="contact-link">✉ rici100895@gmail.com</a>
+      <a href="tel:+6285718507399" class="contact-link">📞 +62 857-1850-7399</a>
+      <a href="https://linkedin.com/in/rici-itinfra" target="_blank" class="contact-link">🔗 LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 RICI · Senior IT Infrastructure Engineer · Bekasi, Indonesia</p>
+  <p style="margin-top:0.5rem;opacity:0.5">Built with passion for infrastructure excellence</p>
+</footer>
+
+<script>
+  // Typing animation
+  const roles = [
+    "Hybrid Infrastructure | Network | Cloud | Security",
+    "VMware · Proxmox · Alibaba Cloud · AWS",
+    "MikroTik · Fortinet · WireGuard · VLAN",
+    "Odoo ERP · Zimbra · Zabbix · Grafana",
+  ];
+  let roleIdx = 0, charIdx = 0, deleting = false;
+  const el = document.getElementById('typing-text');
+
+  function type() {
+    const current = roles[roleIdx];
+    if (!deleting) {
+      el.textContent = current.slice(0, ++charIdx);
+      if (charIdx === current.length) { deleting = true; setTimeout(type, 2000); return; }
+    } else {
+      el.textContent = current.slice(0, --charIdx);
+      if (charIdx === 0) { deleting = false; roleIdx = (roleIdx + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 40 : 70);
+  }
+  type();
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
